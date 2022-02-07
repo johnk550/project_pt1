@@ -1,0 +1,21 @@
+---
+title: "MATH 158 - Inference in SLR"
+author: "John King"
+date: "due Thursday, Feb 8, 2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = FALSE, warning = FALSE,
+                      fig.width = 5, fig.height = 3.5, 
+                      fig.align = 'center')
+library(tidyverse)
+library(broom)
+library(tidymodels)
+library(mosaic)
+```
+
+
+
+### Data Description & Descriptive Statistics

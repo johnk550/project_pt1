@@ -52,7 +52,7 @@ Categorical Data
 
 ### Summary of Statistics
 
-As mentioned above, the dataset looked at the 10 companies who prepared advertisements between 2000 and 2020. Out of these 10 companies, this first graph shows how many total advertisements they posted each year. This graph shoes that during this time span, there was a wide range of advertisements posted by these companies. It was interesting to see how consistent certain comapnies would post one or more  advertisements for every year in the Superbowl. 
+As mentioned above, the dataset looked at the 10 companies who prepared advertisements between 2000 and 2020. This first graph shows how many total advertisements the 10 companies collectively posted each year. It was interesting to see how consistent certain comapnies would post one or more advertisements for every year in the Superbowl. 
 
 ```{r  fig.cap = "Advertisements by Year"}
 maindata <- read.csv("Data - ExportedData.csv")
@@ -83,7 +83,7 @@ df6<-maindata %>%
 df6
 ```
 
-For Figure 3, I want to reveal the number of observations which identify as True or False, giving insight into how often each tactic was used to attract customers to their products. It was expected to see funny advertisements have such a high percentage, but the other categories were all consistent with each other.   
+For Figure 3, I want to reveal the number of observations which identify as True or False, giving insight into how often each tactic was used to attract customers to their products. It was expected to see funny advertisements have such a high percentage, but the other categories were all consistent with each other's distribution.   
 
 ```{r fig.cap = "Percent True by Category"}
 
@@ -94,7 +94,7 @@ ggplot(exset, aes(x=category, y=percent_true)) +
   geom_bar(stat = "identity")
 ```
 
-In this last table, I highlighted the mean and median number of views for advertisements based on responding True or False to each category. The mean values were skewed by an outlier which followed the characteristics with the highest number of views. However, the median values indicate that there could be lower views when using sexuality or celebrities in the advertisements. 
+In this last table, I highlighted the mean and median number of views for advertisements based on responding True or False to each category. The mean values were skewed by an outlier which followed the characteristics with the highest number of views. However, the median values indicate that there could be lower views when showing celebrities or using sexuality in the advertisements. 
 
 ```{r fig.cap = "Total Views by Category"}
 df7<-maindata %>% group_by(funny) %>% summarise(mean = round(mean(view_count)), 
@@ -117,7 +117,9 @@ df_5
 
 ### Final Comments
 
+For my data, I expected some of the results I noticed when doing my analysis. However, there were a lot of surprising findings as well. The variety of variables provide interesting insight into what factors about a video corresponded to its popularity, or performance on youtube. There were very general trends of the videos with more views getting more likes, dislikes, and comments, but the amount of each in relation to one another showed unexpected results. For example, the amount of comments much more closely followed the value of dislikes than the value of likes. Also, seeing the types of advertisements change from year to year showed fascinating trends where most years would have nearly all videos within a certain category. For example, nearly every advertisement was listed as funny until 2006, and very few advertisements after 2016 use sexuality in their videos. 
 
+Even though this data targets the top 10 most frequent advertisers in the past 20 years, I think this would fairly represent the population of all Superbowl ads. Other companies would be using similar tactics, such as the categories in this study, to not only attract the viewers on the tv but also produce future popularity through other sources. Therefore, this data provides a credible insight into the characteristics and popularity of Superbowl advertisements. 
 
 
 

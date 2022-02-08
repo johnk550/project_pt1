@@ -8,19 +8,21 @@ output: pdf_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
                       message = FALSE, warning = FALSE,
-                      fig.width = 5, fig.height = 3.5, 
+                      fig.width = 7, fig.height = 3, 
                       fig.align = 'center')
 library(tidyverse)
 library(broom)
 library(tidymodels)
 library(mosaic)
+library(ggplot2)
+
 ```
 
 
 
 ### Introduction to Data
 
-The data from this project comes from [TidyTuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2021/2021-03-02) and [fivethirtyeight](https://github.com/fivethirtyeight/superbowl-ads) on GitHub. This data is a collection of the top 10 companies who posted the most advertisements during the Superbowl between the years 2000 and 2020. Because of errors in data collection, seventeen of the videos had to be removed from the data. From this, we want to compare the different qualities in the video to the social media performance after the event. 
+The data from this project comes from [TidyTuesday](https://github.com/rfordatascience/tidytuesday/tree/master/data/2021/2021-03-02) and [fivethirtyeight](https://github.com/fivethirtyeight/superbowl-ads) on GitHub. This data is a collection of the top 10 companies who posted the most advertisements during the Superbowl between the years 2000 and 2020. Because of errors in data collection, seventeen of the videos had to be removed from the data. From this, we want to compare the different qualities in the video to the youtube performance after the event.
 
 The observational unit is each individual advertisement, and there are 10 variables. The categorical variables are logical binary variables which identify as True or False. 
 
@@ -51,13 +53,37 @@ Categorical Data
 ### Summary of Statistics
 
 As mentioned above, the dataset looked at the 10 companies who prepared advertisements between 2000 and 2020. Out of these 10 companies, this is how many total advertisements they posted each year.
-```{r}
+
+```{r  fig.cap = "Advertisements by Year"}
 maindata <- read.csv("Data - ExportedData.csv")
-table(maindata$year)
+my_data <- as.data.frame(maindata)                   
+ggplot(my_data, aes(x=year)) + geom_bar()
 
 ```
 
-Next, I want to reveal the number of observations which identify as True or False for every categorical variable. 
+This next graph will show how many advertisements each company created for the span of Superbowls. 
+
+```{r fig.cap = "Advertisements by Brand"}
+maindata <- read.csv("Data - ExportedData.csv")
+my_data <- as.data.frame(maindata)                   
+ggplot(my_data, aes(x=brand)) + geom_bar()  
+```
+For this next graph, I indicated some critical statistics encompassing all of the videos for each brand. 
+```{r fig.cap = "View Count by Brand"}
+maindata <- read.csv("Data - ExportedData.csv")
+my_data <- as.data.frame(maindata)
+df6<-maindata %>%
+  group_by(brand) %>%
+  summarise(Min = min(view_count),
+            Max=max(view_count), 
+            mean = round(mean(view_count)), 
+            median = round(median(view_count)))
+df6
+```
+
+For this table, I want to reveal the number of observations which identify as True or False for every categorical variable. 
+
+Object 4: 
 
 \begin{center}
 \begin{tabular}{ c c c c c c}
@@ -67,11 +93,29 @@ Next, I want to reveal the number of observations which identify as True or Fals
 \end{tabular}
 \end{center}
 
+Next, I highlighted the mean and median number of views for advertisements based on responding True or False to each category. 
+
+Object 5: 
+
 ```{r}
-maindata <- read.csv("Data - ExportedData.csv")
-
-
+df7<-maindata %>% group_by(funny) %>% summarise(mean = round(mean(view_count)), 
+median = round(median(view_count)))
+df8<-maindata %>% group_by(celebrity) %>% summarise(mean = round(mean(view_count)),
+median = round(median(view_count)))
+df9<-maindata %>% group_by(danger) %>% summarise(mean = round(mean(view_count)),
+median = round(median(view_count)))
+df10<-maindata %>% group_by(animals) %>% summarise(mean = round(mean(view_count)),
+median = round(median(view_count)))
+df11<-maindata %>% group_by(use_sex) %>% summarise(mean = round(mean(view_count)),
+median = round(median(view_count)))
+df_1 <- merge(df7, df8,  by = "row.names", all = TRUE)
+df_2 <- merge(df_1, df9,  by = "row.names", all = TRUE)
+df_3 <- merge(df_2, df10,  by = "row.names", all = TRUE)
+df_4 <- merge(df_3, df11,  by = "row.names", all = TRUE)
+df_5 <- df_4[ -c(1:4) ]
+df_5
 ```
+
 
 
 

@@ -52,7 +52,7 @@ Categorical Data
 
 ### Summary of Statistics
 
-As mentioned above, the dataset looked at the 10 companies who prepared advertisements between 2000 and 2020. Out of these 10 companies, this is how many total advertisements they posted each year.
+As mentioned above, the dataset looked at the 10 companies who prepared advertisements between 2000 and 2020. Out of these 10 companies, this first graph shows how many total advertisements they posted each year. This graph shoes that during this time span, there was a wide range of advertisements posted by these companies. It was interesting to see how consistent certain comapnies would post one or more  advertisements for every year in the Superbowl. 
 
 ```{r  fig.cap = "Advertisements by Year"}
 maindata <- read.csv("Data - ExportedData.csv")
@@ -61,14 +61,16 @@ ggplot(my_data, aes(x=year)) + geom_bar()
 
 ```
 
-This next graph will show how many advertisements each company created for the span of Superbowls. 
+
+The second graph will show how many advertisements each company created for the span of Superbowls. It would be expected that companies selling beer, snacks, or cars would be the main leaders of this study. It was surprising to see the right skew of how much beer advertisements dominated the other leaders. 
 
 ```{r fig.cap = "Advertisements by Brand"}
 maindata <- read.csv("Data - ExportedData.csv")
 my_data <- as.data.frame(maindata)                   
 ggplot(my_data, aes(x=brand)) + geom_bar()  
 ```
-For this next graph, I indicated some critical statistics encompassing all of the videos for each brand. 
+
+For the first table, I indicated some critical statistics encompassing all of the videos for each brand. By identifying the max column, we can see how certain brands like Doritos have very popular videos that skew their mean view count. However, Doritos, along with the NFL, still have some of the most consistent performing videos with much higher median values than the other brands. 
 ```{r fig.cap = "View Count by Brand"}
 maindata <- read.csv("Data - ExportedData.csv")
 my_data <- as.data.frame(maindata)
@@ -81,23 +83,20 @@ df6<-maindata %>%
 df6
 ```
 
-For this table, I want to reveal the number of observations which identify as True or False for every categorical variable. 
+For Figure 3, I want to reveal the number of observations which identify as True or False, giving insight into how often each tactic was used to attract customers to their products. It was expected to see funny advertisements have such a high percentage, but the other categories were all consistent with each other.   
 
-Object 4: 
+```{r fig.cap = "Percent True by Category"}
 
-\begin{center}
-\begin{tabular}{ c c c c c c}
-  & Funny & Celebrity & Danger & Animals & Use\_Sex \\
- True & 171 & 71 & 75 & 92 & 66\\  
- False & 45 & 145 & 141 & 124 & 150   
-\end{tabular}
-\end{center}
+exset <- data.frame(
+  category=c("funny","celebrity","danger","animals","use_sex") ,  
+  percent_true=c(0.792, 0.329, 0.347, 0.426, 0.306 ))
+ggplot(exset, aes(x=category, y=percent_true)) + 
+  geom_bar(stat = "identity")
+```
 
-Next, I highlighted the mean and median number of views for advertisements based on responding True or False to each category. 
+In this last table, I highlighted the mean and median number of views for advertisements based on responding True or False to each category. The mean values were skewed by an outlier which followed the characteristics with the highest number of views. However, the median values indicate that there could be lower views when using sexuality or celebrities in the advertisements. 
 
-Object 5: 
-
-```{r}
+```{r fig.cap = "Total Views by Category"}
 df7<-maindata %>% group_by(funny) %>% summarise(mean = round(mean(view_count)), 
 median = round(median(view_count)))
 df8<-maindata %>% group_by(celebrity) %>% summarise(mean = round(mean(view_count)),
@@ -115,6 +114,8 @@ df_4 <- merge(df_3, df11,  by = "row.names", all = TRUE)
 df_5 <- df_4[ -c(1:4) ]
 df_5
 ```
+
+### Final Comments
 
 
 
